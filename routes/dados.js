@@ -7,6 +7,7 @@ const teste_controller = require('../controllers/teste_controller');
 //retorna todos os dados
 router.get('/', teste_controller.getDados);
 
+router.get('/:id', teste_controller.getDados);
 
 
 // insere um produto
