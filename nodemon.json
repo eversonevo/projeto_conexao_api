@@ -1,0 +1,11 @@
+{
+    "env":{
+        "MYSQL_USER":"u903973099_bancoTeste",
+        "MYSQL_PASSWORD":"bancoTeste123",
+        "MYSQL_DATABASE":"u903973099_bancoTeste",
+        "MYSQL_HOST":"srv719.hstgr.io",
+        "MYSQL_PORT": 3306,
+        "URL_API":"http://localhost:3000/",
+        "JWT_KEY":"chave_segredo"                
+    }
+}
