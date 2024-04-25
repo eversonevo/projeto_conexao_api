@@ -11,9 +11,11 @@ exports.getDados = async (req, res, next) => {
 
 
     try {
-git 
+
         const query = "SELECT * FROM teste;";
         const result = await mysql.execute(query);
+
+        console.log('passando');
         
         const response = {
             nome: result.nome,
