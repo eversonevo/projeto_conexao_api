@@ -45,7 +45,7 @@ exports.getDados = async (req, res, next) => {
 // *********************************************************************************************
 
 // INSERE PRODUTO - USANDO ASYNC / AWAIT - FUNCTION SÓ PARA ACESSAR MYSQL
-exports.insereDados = async (req, res, next) => {
+exports.insereDado = async (req, res, next) => {
     try {
         const query = "INSERT INTO teste (nome, telefone) VALUES (?,?);";
         const result = await mysql.execute(query, [

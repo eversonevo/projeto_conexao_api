@@ -10,21 +10,21 @@ router.get('/', teste_controller.getDados);
 // insere um produto
 router.post(
     '/',    
-    teste_controller.insereDados);
-/*
-// retorna os dados de um produto pelo id
-router.get('/:id_produto', produtos_controller.getIdProduto);
+    teste_controller.insereDado);
+
+//retorna os dados de um produto pelo id
+router.get('/:id', teste_controller.getIdDado);
 
 // altera um produto
 router.patch(
     '/',
-    login.required, 
-    produtos_controller.updateProduto);
+    //login.required, 
+    teste_controller.alteraDado);
 
 // deleta um produto
 router.delete(
     '/',
-    login.required, 
-    produtos_controller.removeProduto);
-*/
+    //login.required, 
+    teste_controller.removeDado);
+
 module.exports = router;
