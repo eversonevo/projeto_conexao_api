@@ -7,11 +7,7 @@ const cors = require('cors');
 //rotas
 const rotaDados = require('./routes/dados');
 
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'DELETE', 'PUT'],
-    allowedHeaders: ['Content-Type', 'Accept']
-  }));
+app.use(cors());
 
 //controle de CORS, cabeçalhos  IMPORTANTÍSSIMO
 app.use((req,res,next)=>{
