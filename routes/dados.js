@@ -25,6 +25,7 @@ router.patch(
 router.delete(
     '/',
     //login.required, 
+    teste_controller.validateId,
     teste_controller.removeDado);
 
 module.exports = router;
