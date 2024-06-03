@@ -28,6 +28,7 @@ app.use((req,res,next)=>{
     next();
 });
 
+app.use(express.json());
 // monitora as rotas em desenvolvimento
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false})); // apenas dados simples

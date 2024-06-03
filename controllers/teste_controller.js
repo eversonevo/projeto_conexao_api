@@ -1,6 +1,14 @@
 
 const mysql = require('../mysql');
 const multer = require('multer'); //para trabalhar com imagens
+const { body, validationResult } = require('express-validator');
+const db = require('../mysql'); // Importando a conexão do banco de dados
+
+
+// Middleware de validação    SEPARAR
+exports.validateId = [
+    body('id').isInt({ gt: 0 }).withMessage('ID deve ser um número inteiro positivo')
+  ];
 
 // *********************************************************************************************
 
@@ -107,31 +115,56 @@ exports.alteraDado = async (req, res, next) => {
 // *********************************************************************************************
 
 // REMOVE PRODUTO - USANDO ASYNC / AWAIT - FUNCTION SÓ PARA ACESSAR MYSQL
+// Controlador para remover dado
 exports.removeDado = async (req, res, next) => {
+    console.log('entrei aqui');
+  
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('entrei aqui 3');
+      return res.status(400).json({ errors: errors.array() });
+    }
+  
+    console.log('passei 3');
 
-    body('id').isInt({ gt: 0 }).withMessage('ID deve ser um número inteiro positivo'),
-    (req, res) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-  
-      const { id } = req.body;
-      const query = 'DELETE FROM teste WHERE id = ?';
-      db.query(query, [id], (err, results) => {
-        if (err) {
-          console.error('Erro ao excluir registro:', err);
-          return res.status(500).send({ error: true, message: 'Erro ao excluir registro' });
-        }
-  
+    // Extração do ID do corpo da requisição
+  const { id } = req.body;
+  const query = 'DELETE FROM teste WHERE id = ?';
+  console.log(`Tentando excluir o registro com ID: ${id}`);
+
+    try {
+        const results = await db.execute(query, [id]);
         if (results.affectedRows === 0) {
           return res.status(404).send({ error: true, message: 'Registro não encontrado' });
         }
-  
+    
         return res.send({ error: false, message: 'Registro excluído com sucesso', data: results });
-      });
-    }
+      } catch (err) {
+        console.error('Erro ao excluir registro:', err);
+        return res.status(500).send({ error: true, message: 'Erro ao excluir registro' });
+      };
   
+
+/*
+    // Extração do ID do corpo da requisição
+    const { id } = req.body;
+    const query = 'DELETE FROM teste WHERE id = ?';
+    console.log(`Tentando excluir o registro com ID: ${id}`);
+  
+    // Execução da consulta ao banco de dados
+    db.query(query, [id], (err, results) => {
+      if (err) {
+        console.error('Erro ao excluir registro:', err);
+        return res.status(500).send({ error: true, message: 'Erro ao excluir registro' });
+      }
+  
+      if (results.affectedRows === 0) {
+        return res.status(404).send({ error: true, message: 'Registro não encontrado' });
+      }
+  
+      return res.send({ error: false, message: 'Registro excluído com sucesso', data: results });
+    });*/
+  };  
 
 /*
     try {
@@ -156,7 +189,7 @@ exports.removeDado = async (req, res, next) => {
         return res.status(500).send({ error: error });
     }
 */
-}
+
 
 
 // *********************************************************************************************
@@ -238,4 +271,16 @@ exports.getNomeDado = async (req, res, next) => {
 }
 
 // *********************************************************************************************
+/*
+const teste_controller = {
+    validateId,
+    getDados,
+    insereDado,
+    alteraDado,
+    removeDado,
+    getIdDado,
+    getNomeDado,
 
+};
+
+exports.module = teste_controller;*/
