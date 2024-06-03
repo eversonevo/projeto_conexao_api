@@ -116,21 +116,26 @@ exports.removeDado = async (req, res, next) => {
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
+
+      res.send('ID é válido!');
   
-      const { id } = req.body;
-      const query = 'DELETE FROM teste WHERE id = ?';
-      db.query(query, [id], (err, results) => {
-        if (err) {
-          console.error('Erro ao excluir registro:', err);
-          return res.status(500).send({ error: true, message: 'Erro ao excluir registro' });
-        }
-  
-        if (results.affectedRows === 0) {
-          return res.status(404).send({ error: true, message: 'Registro não encontrado' });
-        }
-  
-        return res.send({ error: false, message: 'Registro excluído com sucesso', data: results });
-      });
+  // Extração do ID do corpo da requisição
+  const { id } = req.body;
+  const query = 'DELETE FROM teste WHERE id = ?';
+
+  // Execução da consulta ao banco de dados
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Erro ao excluir registro:', err);
+      return res.status(500).send({ error: true, message: 'Erro ao excluir registro' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).send({ error: true, message: 'Registro não encontrado' });
+    }
+
+    return res.send({ error: false, message: 'Registro excluído com sucesso', data: results });
+  });
     }
   
 
