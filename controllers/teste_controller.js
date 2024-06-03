@@ -251,3 +251,15 @@ exports.getNomeDado = async (req, res, next) => {
 
 // *********************************************************************************************
 
+const teste_controller = {
+    validateId,
+getDados,
+insereDado,
+alteraDado,
+removeDado,
+getIdDado,
+getNomeDado,
+
+};
+
+exports.module = teste_controller;
