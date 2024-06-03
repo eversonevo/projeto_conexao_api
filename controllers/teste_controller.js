@@ -115,7 +115,9 @@ exports.removeDado = async (req, res, next) => {
     body('id').isInt({ gt: 0 }).withMessage('ID deve ser um número inteiro positivo'),
     (req, res) => {
       const errors = validationResult(req);
+      console.log('entrei aqui 2');
       if (!errors.isEmpty()) {
+        console.log('entrei aqui 3');
         return res.status(400).json({ errors: errors.array() });
       }
 
