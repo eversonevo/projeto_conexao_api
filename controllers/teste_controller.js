@@ -110,6 +110,8 @@ exports.alteraDado = async (req, res, next) => {
 // REMOVE PRODUTO - USANDO ASYNC / AWAIT - FUNCTION SÓ PARA ACESSAR MYSQL
 exports.removeDado = async (req, res, next) => {
 
+    console.log('entrei aqui');
+
     body('id').isInt({ gt: 0 }).withMessage('ID deve ser um número inteiro positivo'),
     (req, res) => {
       const errors = validationResult(req);
@@ -117,11 +119,15 @@ exports.removeDado = async (req, res, next) => {
         return res.status(400).json({ errors: errors.array() });
       }
 
+      console.log('passei 3');
+
       res.send('ID é válido!');
   
   // Extração do ID do corpo da requisição
   const { id } = req.body;
   const query = 'DELETE FROM teste WHERE id = ?';
+  console.log(`Tentando excluir o registro com ID: ${id}`);
+
 
   // Execução da consulta ao banco de dados
   db.query(query, [id], (err, results) => {
