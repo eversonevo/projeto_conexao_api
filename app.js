@@ -2,9 +2,16 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //rotas
 const rotaDados = require('./routes/dados');
+
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    allowedHeaders: ['Content-Type', 'Accept']
+  }));
 
 //controle de CORS, cabeçalhos  IMPORTANTÍSSIMO
 app.use((req,res,next)=>{
