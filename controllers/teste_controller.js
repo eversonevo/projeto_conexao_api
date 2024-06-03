@@ -1,6 +1,7 @@
 
 const mysql = require('../mysql');
 const multer = require('multer'); //para trabalhar com imagens
+const { body, validationResult } = require('express-validator');
 
 // *********************************************************************************************
 
