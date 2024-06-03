@@ -127,6 +127,11 @@ exports.removeDado = async (req, res, next) => {
   
     console.log('passei 3');
 
+    // Extração do ID do corpo da requisição
+  const { id } = req.body;
+  const query = 'DELETE FROM teste WHERE id = ?';
+  console.log(`Tentando excluir o registro com ID: ${id}`);
+
     try {
         const results = await db.execute(query, [id]);
         if (results.affectedRows === 0) {
