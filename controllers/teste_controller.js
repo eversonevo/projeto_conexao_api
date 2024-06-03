@@ -4,7 +4,7 @@ const multer = require('multer'); //para trabalhar com imagens
 const { body, validationResult } = require('express-validator');
 
 // Middleware de validação    SEPARAR
-const validateId = [
+exports.validateId = [
     body('id').isInt({ gt: 0 }).withMessage('ID deve ser um número inteiro positivo')
   ];
 
@@ -114,7 +114,7 @@ exports.alteraDado = async (req, res, next) => {
 
 // REMOVE PRODUTO - USANDO ASYNC / AWAIT - FUNCTION SÓ PARA ACESSAR MYSQL
 // Controlador para remover dado
-const removeDado = async (req, res, next) => {
+exports.removeDado = async (req, res, next) => {
     console.log('entrei aqui');
   
     const errors = validationResult(req);
@@ -250,16 +250,16 @@ exports.getNomeDado = async (req, res, next) => {
 }
 
 // *********************************************************************************************
-
+/*
 const teste_controller = {
     validateId,
-getDados,
-insereDado,
-alteraDado,
-removeDado,
-getIdDado,
-getNomeDado,
+    getDados,
+    insereDado,
+    alteraDado,
+    removeDado,
+    getIdDado,
+    getNomeDado,
 
 };
 
-exports.module = teste_controller;
+exports.module = teste_controller;*/
