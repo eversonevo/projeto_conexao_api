@@ -2,6 +2,8 @@
 const mysql = require('../mysql');
 const multer = require('multer'); //para trabalhar com imagens
 const { body, validationResult } = require('express-validator');
+const db = require('../mysql'); // Importando a conexão do banco de dados
+
 
 // Middleware de validação    SEPARAR
 exports.validateId = [
@@ -124,7 +126,21 @@ exports.removeDado = async (req, res, next) => {
     }
   
     console.log('passei 3');
+
+    try {
+        const results = await db.execute(query, [id]);
+        if (results.affectedRows === 0) {
+          return res.status(404).send({ error: true, message: 'Registro não encontrado' });
+        }
+    
+        return res.send({ error: false, message: 'Registro excluído com sucesso', data: results });
+      } catch (err) {
+        console.error('Erro ao excluir registro:', err);
+        return res.status(500).send({ error: true, message: 'Erro ao excluir registro' });
+      };
   
+
+/*
     // Extração do ID do corpo da requisição
     const { id } = req.body;
     const query = 'DELETE FROM teste WHERE id = ?';
@@ -142,7 +158,7 @@ exports.removeDado = async (req, res, next) => {
       }
   
       return res.send({ error: false, message: 'Registro excluído com sucesso', data: results });
-    });
+    });*/
   };  
 
 /*
